@@ -2,7 +2,6 @@ const rows = 3;
 const columns = 3;
 
 let currTile;
-let otherTile; //blank tile
 
 let board = [];
 
@@ -40,124 +39,49 @@ function dragStart() {
   let r = parseInt(currCoords[0]);
   let c = parseInt(currCoords[1]);
 
-  console.log(r, c);
-
-  console.log(currTile.id);
-
   function neighbors() {
-    let neighbor1 = currTile;
+    let nLeft = board[r][c - 1];
+    let nRight = board[r][c + 1];
+    let nUp = board[r - 1][c];
+    let nDown = board[r + 1][c];
+
+    if ((nDown.src = lightsOn)) {
+      nDown.src = lightsOff;
+    } else {
+      nDown.src = lightsOn;
+    }
+    if ((nUp.src = lightsOn)) {
+      nUp.src = lightsOff;
+    } else {
+      nUp.src = lightsOn;
+    }
+    if ((nLeft.src = lightsOn)) {
+      nLeft.src = lightsOff;
+    } else {
+      nLeft.src = lightsOn;
+    }
+    if ((nRight.src = lightsOn)) {
+      nRight.src = lightsOff;
+    } else {
+      nRight.src = lightsOn;
+    }
   }
 
-  if ((currTile.src = lightsOff)) {
-    currTile.src = lightsOn;
-  } else {
+  if ((currTile.src = lightsOn)) {
     currTile.src = lightsOff;
+  } else {
+    currTile.src = lightsOn;
   }
-
-  //   if (r == 0 && c == 0) {
-  //     if ((board[0][1].src = lightsOn)) {
-  //       board[0][1].src = lightsOff;
-  //     } else {
-  //       board[0][1].src = lightsOn;
-  //     }
-  //   }
+  neighbors();
+  Winner();
 }
 
-function clickLights() {
-  //check rows
+function Winner() {
   for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < columns - 2; c++) {
-      let light1 = board[r][c];
-      let light2 = board[r][c + 1];
-      let light3 = board[r][c + 2];
-      if (light1.src == light2.src && light2.src == light2.src) {
-        // candy1.src = './images/blank.png';
-        // candy2.src = './images/blank.png';
-        // candy3.src = './images/blank.png';
-        // score += 30;
-      }
-    }
-  }
-
-  //check columns
-  for (let c = 0; c < columns; c++) {
-    for (let r = 0; r < rows - 2; r++) {
-      let light1 = board[r][c];
-      let light2 = board[r + 1][c];
-      let light3 = board[r + 2][c];
-      if (
-        candy1.src == candy2.src &&
-        candy2.src == candy3.src &&
-        !candy1.src.includes('blank')
-      ) {
-        // candy1.src = './images/blank.png';
-        // candy2.src = './images/blank.png';
-        // candy3.src = './images/blank.png';
-        // score += 30;
+    for (let c = 0; c < columns; c++) {
+      if ((board[r][c].src = lightsOff)) {
+        document.getElementById('win').innerText = 'Winner';
       }
     }
   }
 }
-
-// function dragOver(e) {
-//   e.preventDefault();
-// }
-
-// function dragEnter(e) {
-//   e.preventDefault();
-// }
-
-// function dragLeave() {}
-
-// function dragDrop() {
-//   otherTile = this; //this refers to the img tile being dropped on
-// }
-
-// function dragEnd() {}
-
-// function dragEnd() {
-//   if (!otherTile.src.includes('3.jpg')) {
-//     return;
-//   }
-
-//   let currCoords = currTile.id.split('-'); //ex) "0-0" -> ["0", "0"]
-//   let r = parseInt(currCoords[0]);
-//   let c = parseInt(currCoords[1]);
-
-//   let otherCoords = otherTile.id.split('-');
-//   let r2 = parseInt(otherCoords[0]);
-//   let c2 = parseInt(otherCoords[1]);
-
-//   let moveLeft = r == r2 && c2 == c - 1;
-//   let moveRight = r == r2 && c2 == c + 1;
-
-//   let moveUp = c == c2 && r2 == r - 1;
-//   let moveDown = c == c2 && r2 == r + 1;
-
-//   let isAdjacent = moveLeft || moveRight || moveUp || moveDown;
-
-//   if (isAdjacent) {
-//     let currImg = currTile.src;
-//     let otherImg = otherTile.src;
-
-//     currTile.src = otherImg;
-//     otherTile.src = currImg;
-
-//     turns += 1;
-//     document.getElementById('turns').innerText = turns;
-//     console.log(board[0][0]);
-//     if (board[0][0].src == 'http://127.0.0.1:5500/2.jpg') {
-//       console.log('win');
-//     }
-//   }
-// }
-
-// const cellElements = document.('data');
-
-// cellElements.forEach((cell) => {
-//   cell.addEventListener('click', handleClick);
-// });
-
-// function handleClick(e) {
-//   console.log('clickssed');
-// }
